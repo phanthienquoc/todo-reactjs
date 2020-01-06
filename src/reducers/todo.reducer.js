@@ -6,7 +6,8 @@ const initialState = {
         id: null,
         title: '',
         content: ''
-    }
+    },
+    isEdit: false
 };
 
 const todosReducer = (state = initialState, action) => {
@@ -40,7 +41,8 @@ const todosReducer = (state = initialState, action) => {
 
             return {
                 ...state,
-                todoEdit: editItem
+                todoEdit: editItem,
+                isEdit: true
             }
         }
 
@@ -58,7 +60,15 @@ const todosReducer = (state = initialState, action) => {
             })
             return {
                 ...state,
-                todos: newTodos
+                todos: newTodos,
+                isEdit: false
+            }
+        }
+
+        case types.CANCLE_EDIT_TODO: {
+            return {
+                ...state,
+                isEdit: false
             }
         }
 

@@ -1,27 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { PropTypes } from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateTodo } from '../actions/todos.action';
+import { updateTodo, cancleEditTodo } from '../actions/todos.action';
 import * as utils from '../helpers/utils';
 
 
 function EditTodo() {
-    const { inputs, handleInputChange, handleUpdate } = useEditTodoForm();
+    const { inputs, handleInputChange, handleUpdate, handleCancle } = useEditTodoForm();
     return (
         <React.Fragment>
+            <h2>Edit todo</h2>
             {
-                <form onSubmit={handleUpdate} method="post">
-                    <div className='form-todo'>
-                        <div className="title">Title </div>
-                        <div className="input">
-                            <input type="text" name="title" defaultValue={inputs.title} onChange={handleInputChange} />
-                        </div>
-                        <div className="title"> Content</div>
-                        <div className="input">
-                            <input type="text" name="content" defaultValue={inputs.content} onChange={handleInputChange} />
-                        </div>
-                        <button type="submit" >Update</button>
-                    </div >
+                <form onSubmit={handleUpdate} method="post" >
+                    <label>Title</label>
+                    <input type="text" name="title" value={inputs.title} onChange={handleInputChange} />
+                    <label>Content</label>
+                    <input type="text" name="content" value={inputs.content} onChange={handleInputChange} />
+                    <button>Update</button>
+                    <button onClick={handleCancle} className="button muted-button">Cancel</button>
                 </form>
             }
         </React.Fragment>
@@ -47,7 +43,13 @@ const useEditTodoForm = () => {
     let data = props.todosReducer.todoEdit;
     const [inputs, setInputs] = useStateFromProp(data);
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+
+
+    const handleCancle = () => {
+        dispatch(cancleEditTodo())
+    }
+
     const handleUpdate = (event) => {
         if (event) {
             event.preventDefault();
@@ -93,6 +95,7 @@ const useEditTodoForm = () => {
     };
 
     return {
+        handleCancle,
         handleUpdate,
         handleInputChange,
         inputs

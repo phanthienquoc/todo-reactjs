@@ -1,8 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteTodo, editTodo } from '../actions/todos.action'
-import { Menu, Icon } from 'antd';
-
 
 
 function ListingTodo() {
@@ -14,28 +12,37 @@ function ListingTodo() {
     }
 
     const editItem = (id) => {
-        console.log('dispatch', id)
         dispatch(editTodo(id))
     }
 
     return (
-        <Menu
-            mode="inline"
-            defaultSelectedKeys={['1']}
-            defaultOpenKeys={['sub1']}
-            style={{ height: '100%', borderRight: 0 }}
-        >
-            {
-                props.todosReducer.todos.map(todo => {
-                    return (
-                        <Menu.Item key={todo.id}>{todo.id} -  {todo.title} <Icon type="laptop" />{todo.content}
-                            <button onClick={() => deleteItem(todo.id)} >delete</button>
-                            <button onClick={() => editItem(todo.id)} >edit</button>
-                        </Menu.Item>
-                    )
-                })
-            }
-        </Menu>
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Content</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {props.todosReducer.todos.length > 0 ? (
+                    props.todosReducer.todos.map(todo => (
+                        <tr key={todo.id}>
+                            <td>{todo.title}</td>
+                            <td>{todo.content}</td>
+                            <td>
+                                <button className="button muted-button" onClick={() => editItem(todo.id)}>Edit</button>
+                                <button className="button muted-button" onClick={() => deleteItem(todo.id)}>Delete</button>
+                            </td>
+                        </tr>
+                    ))
+                ) : (
+                        <tr>
+                            <td colSpan={3}>No todos</td>
+                        </tr>
+                    )}
+            </tbody>
+        </table>
     )
 }
 

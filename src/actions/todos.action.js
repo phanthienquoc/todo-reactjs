@@ -20,5 +20,9 @@ export const deleteTodo = (id) => ({
 
 export const editTodo = (id) => ({
     type: types.EDIT_TODO,
-    id: id
+    id: id,
 });
+
+export const cancleEditTodo = () => ({
+    type: types.CANCLE_EDIT_TODO
+})

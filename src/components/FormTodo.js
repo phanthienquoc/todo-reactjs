@@ -10,6 +10,7 @@ function FormTodo() {
 
     return (
         <React.Fragment>
+            <h2>Add todo</h2>
             <form onSubmit={handleAdd} method="post">
                 <div className='form-todo'>
                     <div className="title">Title </div>
