@@ -5,7 +5,11 @@ const initialState = {
     todoEdit: {
         id: null,
         title: '',
-        content: ''
+        content: '',
+        inputId: '',
+        currentCursor: 0,
+        numberOldComma: 0,
+        numberNewComma: 0
     },
     isEdit: false
 };
@@ -27,9 +31,16 @@ const todosReducer = (state = initialState, action) => {
         }
 
         case types.DELETE_TODO: {
-            let newTodos = state.todos.filter((todo) => todo.id !== action.id)
+            let newTodos = state.todos.filter((todo) => todo.id !== action.id);
+            let isEdit;
+            if (newTodos.length > 0) {
+                isEdit = state.isEdit
+            } else {
+                isEdit = false;
+            }
             return {
                 ...state,
+                isEdit: isEdit,
                 todos: newTodos
             }
         }

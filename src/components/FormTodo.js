@@ -1,30 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PropTypes } from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { addTodo } from '../actions/todos.action';
 import * as utils from '../helpers/utils';
+import NumberInput from '../components/NumberInput';
 
 
-function FormTodo() {
+const FormTodo = props => {
     const { inputs, handleInputChange, handleAdd } = useAddTodoForm();
 
+    const data = {
+        ...inputs,
+        title: 'Content',
+        id: 'addcontent',
+        name: 'addcontent',
+        onChange: handleInputChange,
+    }
+
+    console.log(data)
+
     return (
-        <React.Fragment>
+        <React.Fragment >
             <h2>Add todo</h2>
             <form onSubmit={handleAdd} method="post">
                 <div className='form-todo'>
                     <div className="title">Title </div>
                     <div className="input">
-                        <input type="text" name="title" value={inputs.title} onChange={handleInputChange} />
+                        <input id="addtitle" type="text" name="title" value={inputs.title} onChange={handleInputChange} />
                     </div>
-                    <div className="title"> Content</div>
+                    <NumberInput {...data} />
+                    {/* <div className="title"> Content</div>
                     <div className="input">
-                        <input type="text" name="content" value={inputs.content} onChange={handleInputChange} />
-                    </div>
+                        <input id="addcontent" type="text" name="addcontent" value={inputs.content} onChange={handleInputChange} />
+                    </div> */}
                     <button type="submit" >Add</button>
                 </div >
             </form>
-        </React.Fragment>
+        </React.Fragment >
     )
 }
 
@@ -33,11 +45,20 @@ FormTodo.propTypes = {
     content: PropTypes.string
 }
 
-const useAddTodoForm = (callback) => {
+
+const useAddTodoForm = () => {
     const [inputs, setInputs] = useState({
+        inputId: '',
         title: '',
-        content: ''
+        content: '',
+        currentCursor: 0,
+        numberOldComma: 0,
+        numberNewComma: 0
     });
+
+    useEffect(() => {
+        utils.setCaretToPos(inputs.inputId, inputs.currentCursor)
+    })
 
     const dispatch = useDispatch()
 
@@ -60,27 +81,37 @@ const useAddTodoForm = (callback) => {
         event.target.reset();
     };
 
+
+
     const handleInputChange = (event) => {
         let number;
+        let currentCursor = event.target.selectionStart || 0;
+        let spaceFromLastCharacter = 0;
+
+        let inputId = event.target.id;
         event.persist();
 
-        if (event.target.name === 'content') {
-            number = utils.removeComma(event.target.value);
-            if (utils.isNumber(number)) {
-                number = utils.maxNumberInt(number);
-                number = utils.formatNumberThousand(number);
-                setInputs(inputs => ({
-                    ...inputs,
-                    content: number
-                }));
+
+        if (event.target.name === 'addcontent') {
+            if (event.target.value.length < 2) {
+                spaceFromLastCharacter = 0;
             } else {
-                setInputs(inputs => ({
-                    ...inputs
-                }));
+                spaceFromLastCharacter = event.target.value.length - currentCursor;
             }
+
+            number = utils.handleNumber(event.target.value);
+            setInputs(inputs => ({
+                ...inputs,
+                currentCursor: (number.length - spaceFromLastCharacter),
+                inputId: inputId,
+                content: number
+            }))
+
         } else {
             setInputs(inputs => ({
                 ...inputs,
+                currentCursor: currentCursor,
+                inputId: inputId,
                 [event.target.name]: event.target.value
             }));
         }
