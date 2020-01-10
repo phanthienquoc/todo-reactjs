@@ -1,31 +1,28 @@
-import React, { useState, useEffect } from "react";
-import { PropTypes } from "prop-types";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addTodo } from "../actions/todos.action";
 import * as utils from "../helpers/utils";
 import NumberInput from "../components/NumberInput";
-import TextInput from "../components/TextInput";
 
-const FormTodo = props => {
+const TestNumber = props => {
   const { inputs, handleInputChange, handleAdd } = useAddTodoForm();
 
-  const content = {
+  const number = {
     title: "Content",
-    id: utils.generateUUID("content"),
-    name: "content",
+    id: "content",
+    name: "value",
     value: inputs.value,
     readOnly: false,
-    placeHolder: "content",
+    placeHolder: "input number",
     onChange: handleInputChange
   };
-
-  const title = {
-    title: "Title",
-    id: "title",
-    name: "title",
+  const number2 = {
+    title: "Content2",
+    id: "content2",
+    name: "value2",
+    value: inputs.value2,
     readOnly: false,
-    placeHolder: "title",
-    value: inputs.title || "",
+    placeHolder: "input number",
     onChange: handleInputChange
   };
 
@@ -34,8 +31,8 @@ const FormTodo = props => {
       <h2>Add todo</h2>
       <form onSubmit={handleAdd} method="post">
         <div className="form-todo">
-          <TextInput {...title} />
-          <NumberInput {...content} />
+          <NumberInput {...number} />
+          <NumberInput {...number2} />
           <button type="submit">Add</button>
         </div>
       </form>
@@ -43,20 +40,10 @@ const FormTodo = props => {
   );
 };
 
-FormTodo.propTypes = {
-  title: PropTypes.string,
-  value: PropTypes.string
-};
-
 const useAddTodoForm = () => {
   const [inputs, setInputs] = useState({
-    id: utils.generateUUID(),
-    title: "",
+    value2: "",
     value: ""
-  });
-
-  useEffect(() => {
-    // utils.setCaretToPos(inputs.id, inputs.currentCursor);
   });
 
   const dispatch = useDispatch();
@@ -66,13 +53,13 @@ const useAddTodoForm = () => {
       event.preventDefault();
     }
 
-    if (utils.isEmpty(inputs.title) || utils.isEmpty(inputs.content)) {
+    if (utils.isEmpty(inputs.value)) {
       alert("Title and content can not empty");
     } else {
+      console.log(inputs);
       dispatch(
         addTodo({
-          title: inputs.title,
-          content: inputs.content
+          ...inputs
         })
       );
     }
@@ -84,23 +71,14 @@ const useAddTodoForm = () => {
   const handleInputChange = event => {
     let input = {
       ...inputs,
-      id: event.id,
-      title: event.name,
-      value: event.value,
-      currentCursor: event.currentCursor
+      [event.name]: event.value
     };
 
-    if (event.name === "content") {
-      setInputs({
-        ...input,
-        content: event.value
-      });
-    } else {
-      setInputs({
-        ...input,
-        [event.name]: event.value
-      });
-    }
+    console.log(input);
+
+    setInputs({
+      ...input
+    });
   };
 
   return {
@@ -110,4 +88,4 @@ const useAddTodoForm = () => {
   };
 };
 
-export default FormTodo;
+export default TestNumber;
