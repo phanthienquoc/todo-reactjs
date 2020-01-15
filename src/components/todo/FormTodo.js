@@ -3,8 +3,8 @@ import { PropTypes } from "prop-types";
 import { useDispatch } from "react-redux";
 import { addTodo } from "../actions/todos.action";
 import * as utils from "../helpers/utils";
-import NumberInput from "../components/NumberInput";
-import TextInput from "../components/TextInput";
+import NumberInput from "../components/common/NumberInput";
+import TextInput from "../components/common/TextInput";
 
 const FormTodo = props => {
   const { inputs, handleInputChange, handleAdd } = useAddTodoForm();

@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteTodo, editTodo } from "../actions/todos.action";
+import { deleteTodo, editTodo } from "../../actions/todos.action";
 
 function ListingTodo() {
   const props = useSelector(state => state);
