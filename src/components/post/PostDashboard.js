@@ -56,7 +56,44 @@ const PostDashboard = () => {
     dispatch(postAction.onBack());
   };
 
-  let match = useRouteMatch();
+  let url =
+    // "https://images-na.ssl-images-amazon.com/images/I/31-rHhErikL._SX331_BO1,204,203,200_.jpg";
+    "https://camerabox.vn/uploads/news/2018_11/chup-anh-thien-nhien-theo-mua-2.jpg";
+
+  const callAPI = (file, fileName) => {
+    let error = false;
+    if (error) {
+      return {
+        src: url,
+        error: "xxx"
+      };
+    } else {
+      return {
+        src: url
+      };
+    }
+  };
+
+  const _onUploadSingleFile = (file, fileName) => {
+    let result = callAPI(file, fileName);
+    return {
+      src: result.src,
+      error: result.error
+    };
+  };
+
+  const _onUploadMultiFiles = files => {
+    files = files.map(item => {
+      let result = _onUploadSingleFile(item.file, item.fileName);
+      return {
+        ...item,
+        src: result.error ? result.error : result.src,
+        alt: result.error ? result.error : item.fileName
+      };
+    });
+
+    return files;
+  };
 
   props = {
     ...props,
@@ -65,7 +102,8 @@ const PostDashboard = () => {
     onPreview: _onPreview,
     onCancle: _onCancle,
     onUpdate: _onUpdate,
-    onBack: _onBack
+    onBack: _onBack,
+    onUploadMultiFiles: _onUploadMultiFiles
   };
 
   return (
@@ -73,6 +111,7 @@ const PostDashboard = () => {
       <Fragment>
         <Route path="/blogs/list">
           <PostList {...props} />
+          ``
         </Route>
         <Route path="/blogs/create">
           <FormPost {...props} />

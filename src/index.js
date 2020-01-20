@@ -6,6 +6,7 @@ import store from "./store/store";
 
 import App from "./App";
 import "./css/index.css";
+import initFireBase from "./venders/firebase";
 
 ReactDOM.render(
   <Provider store={store}>

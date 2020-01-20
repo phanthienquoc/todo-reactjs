@@ -1,0 +1,219 @@
+.preview-editor {
+  min-height: 339px;
+  border: 1px solid #c4c4c4;
+  margin-bottom: 10px;
+  padding-left: 8.4px;
+  padding-right: 8.4px;
+
+  :root {
+    --ck-image-style-spacing: 1.5em;
+    --ck-star-list-checkmark-size: 16px;
+    --ck-dash-list-checkmark-size: 16px;
+  }
+
+  li,
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  span,
+  a {
+    text-align: left;
+  }
+
+  figure.image img {
+    width: 100%;
+  }
+
+  figure.image.image_resized {
+    margin: 0 auto;
+  }
+
+  figure.image.image-style-side,
+  figure.image.image-style-align-left {
+    float: left;
+    max-width: 50%;
+  }
+  figure.image.image-style-align-center {
+  }
+  figure.image.image-style-align-right {
+    max-width: 50%;
+    float: right;
+  }
+
+  figure.image.image-style-side {
+    float: right;
+    margin-left: var(--ck-image-style-spacing);
+  }
+
+  figure.image.image-style-align-left {
+    float: left;
+    margin-right: var(--ck-image-style-spacing);
+  }
+
+  figure.image.image-style-align-center {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  figure.image.image-style-align-right {
+    float: right;
+    margin-left: var(--ck-image-style-spacing);
+  }
+  .dash-list li {
+    margin-bottom: 5px;
+    position: relative;
+  }
+
+  .dash-list .dash-list__label::before {
+    position: absolute;
+    content: "-";
+    font-weight: 900;
+    top: -1.5px;
+    left: -10px;
+  }
+
+  .dash-list .dash-list__label::before {
+    position: absolute;
+    content: "-";
+    font-weight: 900;
+    top: -1.5px;
+    left: -10px;
+  }
+
+  input[type="checkboxdash"] {
+    display: none;
+  }
+
+  input[type="checkboxstar"] {
+    display: none;
+  }
+
+  .dash-list .dash-list__label .dash-list__label__description {
+    vertical-align: middle;
+  }
+
+  .dash-list {
+    list-style: none;
+    margin-top: 5px;
+  }
+
+  .star-list li {
+    margin-bottom: 5px;
+    position: relative;
+  }
+
+  .star-list {
+    margin-top: 5px;
+  }
+
+  .star-list li {
+    margin-bottom: 5px;
+    position: relative;
+  }
+
+  .star-list .star-list__label::before {
+    position: absolute;
+    content: "*";
+    top: 2px;
+    left: -10px;
+  }
+
+  .star-list .star-list__label .star-list__label__description {
+    vertical-align: middle;
+  }
+
+  .star-list {
+    margin-top: 5px;
+    list-style: none;
+  }
+
+  .todo-list {
+    list-style: none;
+  }
+  .todo-list li {
+    margin-bottom: 5px;
+  }
+  .todo-list li .todo-list {
+    margin-top: 5px;
+  }
+  .todo-list .todo-list__label > input {
+    -webkit-appearance: none;
+    display: inline-block;
+    position: relative;
+    width: var(--ck-todo-list-checkmark-size);
+    height: var(--ck-todo-list-checkmark-size);
+    vertical-align: middle;
+    /* Needed on iOS */
+    border: 0;
+    /* LTR styles */
+    left: -25px;
+    margin-right: -15px;
+    right: 0;
+    margin-left: 0;
+  }
+  .todo-list .todo-list__label > input::before {
+    display: block;
+    position: absolute;
+    box-sizing: border-box;
+    content: "";
+    width: 100%;
+    height: 100%;
+    border: 1px solid #333333;
+    border-radius: 2px;
+    transition: 250ms ease-in-out box-shadow, 250ms ease-in-out background,
+      250ms ease-in-out border;
+  }
+  .todo-list .todo-list__label > input::after {
+    display: block;
+    position: absolute;
+    box-sizing: content-box;
+    pointer-events: none;
+    content: "";
+    /* Calculate tick position, size and border-width proportional to the checkmark size. */
+    left: calc(var(--ck-todo-list-checkmark-size) / 3);
+    top: calc(var(--ck-todo-list-checkmark-size) / 5.3);
+    width: calc(var(--ck-todo-list-checkmark-size) / 5.3);
+    height: calc(var(--ck-todo-list-checkmark-size) / 2.6);
+    border-style: solid;
+    border-color: transparent;
+    border-width: 0 calc(var(--ck-todo-list-checkmark-size) / 8)
+      calc(var(--ck-todo-list-checkmark-size) / 8) 0;
+    transform: rotate(45deg);
+  }
+  .todo-list .todo-list__label > input[checked]::before {
+    background: #26ab33;
+    border-color: #26ab33;
+  }
+  .todo-list .todo-list__label > input[checked]::after {
+    border-color: white;
+  }
+  .todo-list .todo-list__label .todo-list__label__description {
+    vertical-align: middle;
+  }
+}
+
+.ckeditor-container {
+  margin-bottom: 10px;
+}
+
+/* // ck editor */
+
+.ck.ck-content.ck-editor__editable figure.image {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+/*
+ * Copyright (c) 2003-2020, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+ */
+
+:root {
+  --ck-image-style-spacing: 1.5em;
+}
+
+* {
+  text-align: left;
+}

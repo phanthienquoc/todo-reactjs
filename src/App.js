@@ -5,6 +5,7 @@ import "./css/ckeditorimage.css";
 import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
 import PostDashboard from "./components/post/PostDashboard";
 import TodoDashboard from "./components/todo/TodoDashboard";
+import GalleryDashboard from "./components/gallery/GalleryDashboard";
 import {
   BrowserRouter as Router,
   Switch,
@@ -13,12 +14,15 @@ import {
   useHistory
 } from "react-router-dom";
 
+import { init as initDatabase } from "./venders/firebase";
+
 import { Layout, Menu, Breadcrumb, Icon, List, Card, Row, Col } from "antd";
 
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 
-function App() {
+const App = () => {
+  // initDatabase();
   let history = useHistory();
 
   const itemsDashboard = [
@@ -29,6 +33,10 @@ function App() {
     {
       title: "Blog",
       link: "/blogs/list"
+    },
+    {
+      title: "Gallery",
+      link: "/gallery"
     }
   ];
 
@@ -84,12 +92,15 @@ function App() {
               <Route path="/blogs">
                 <PostDashboard />
               </Route>
+              <Route path="/gallery">
+                <GalleryDashboard />
+              </Route>
             </Switch>
           </Content>
         </Layout>
       </Layout>
     </Layout>
   );
-}
+};
 
 export default App;

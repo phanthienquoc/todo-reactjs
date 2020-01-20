@@ -66,7 +66,6 @@ const postsReducer = (state = initialState, action) => {
     }
 
     case types.UPDATE_POST: {
-      debugger;
       let newPosts = state.posts.map(item => {
         if (item.id === action.id) {
           return {
