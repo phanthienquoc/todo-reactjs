@@ -1,0 +1,40 @@
+/*
+ * Copyright (c) 2003-2019, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+ */
+
+ :root {
+	--ck-star-list-checkmark-size: 16px;
+}
+
+.ck-content .dash-list {
+	list-style: none;
+
+	& li {
+		margin-bottom: 5px;
+		position: relative;
+
+		& .dash-list {
+			margin-top: 5px;
+		}
+	}
+
+
+	& .dash-list__label::before {
+		position: absolute;
+		content: "-";
+		font-weight: 900;
+		top: -1.5px;
+		left: -10px;
+	}
+
+	& .dash-list__label {
+		& > input {
+			display: none;
+		}
+
+		& .dash-list__label__description {
+			vertical-align: middle;
+		}
+	}
+}
